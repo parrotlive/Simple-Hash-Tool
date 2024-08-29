@@ -1,5 +1,4 @@
 import os
-from turtle import back
 os.makedirs('logs', exist_ok=True)
 import hashcalc
 import tkinter
