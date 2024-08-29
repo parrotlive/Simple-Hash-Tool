@@ -3,6 +3,10 @@ This tool allows you to hash files or text using a SHA256 Calculator. The usage 
 
 Requirements
 Before you begin, ensure that you have Python 2.6+ installed on your system.
+have  customtkinter library installed, to do it, open cmd and paste:
+```
+pip install customtkinter
+```
 
 Getting Started
 Launch the Tool:
