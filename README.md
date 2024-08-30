@@ -1,34 +1,52 @@
-SHA256 Calculator Tool Usage Guide
-This tool allows you to hash files or text using a SHA256 Calculator. The usage is straightforward, and the following steps will guide you through the process.
+# Hash Calculator Tool Usage Guide
 
-Requirements
-Before you begin, ensure that you have Python 2.6+ installed on your system.
-have  customtkinter library installed, to do it, open cmd and paste:
-```
-pip install customtkinter
-```
+This tool allows you to hash files or text using a calculator that includes the most common hash algorithms. The usage is straightforward, and the following steps will guide you through the process.
 
-Getting Started
-Launch the Tool:
+## Requirements
 
-To start, simply double-click the start.bat file. This will open a window on your screen.
-Run the Hash Calculator:
+Before you begin, ensure the following:
 
-In the first window that appears, click on "Run Hash Calculator." This action will open another window where you can perform the hashing operations.
-Hashing Text
-Input Text:
+1. **Python 2.6+ Installed**: Make sure you have Python 2.6 or a later version installed on your system.
+2. **Install `customtkinter` Library**: To install the required `customtkinter` library, open your command prompt (cmd) and enter the following command:
+   ```bash
+   pip install customtkinter
+   ```
+   
+## Getting Started
 
-In the second window, you can type your desired text in the provided field.
-Generate Hash:
+### Launch the Tool
 
-Once you've entered your text, click on "Hash Text Field Input" to generate the SHA256 hash of your input.
-Hashing Files
-Select a File:
+1. **Start the Application**: 
+- Simply double-click the `start.bat` file. This will open the application window on your screen.
 
-To hash a file, click on "Select File." A file dialog will appear, allowing you to choose the file you want to hash.
-Generate File Hash:
+### Select the Algorithm
 
-After selecting the file, click on "Hash Selected File" to generate the SHA256 hash of the file.
-Retrieving Hashes
-To view the generated hashes, navigate to the logs folder in the tool's directory. Inside, you'll find a file named with the current date. Open this file to retrieve the hashes.
-By following these simple steps, you can easily hash text or files using the SHA256 Calculator.
+2. **Choose Hash Algorithm**:
+- At the top of the window, you'll see a dropdown menu labeled "Select Algorithm." Choose your desired hashing algorithm from the list.
+
+### Input Text
+
+3. **Enter Your Text**:
+- In the text field provided, type the text that you want to hash.
+
+### Generate Hash
+
+4. **Hash the Text**:
+- Once you've entered your text, click on the "Hash Text Field Input" button to generate the hash using the selected algorithm.
+
+## Hashing Files
+
+### Select a File
+
+5. **Choose a File to Hash**:
+- To hash a file, click on the "Select File" button. A file dialog will appear, allowing you to choose the file you want to hash.
+
+### Generate File Hash
+
+6. **Hash the Selected File**:
+- After selecting the file, click on the "Hash Selected File" button to generate the hash of the file using the selected algorithm.
+
+## Retrieving Hashes
+
+7. **View Generated Hashes**:
+- To view the hashes you have generated, navigate to the `logs` folder in the tool's directory. Inside, you'll find a file named with the current date. Open this file to retrieve the hashes.
