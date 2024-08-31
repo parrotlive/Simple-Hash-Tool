@@ -80,6 +80,11 @@ The Hash Calculator Tool also includes a **Color Chooser** that allows you to cu
 6. **Save Your Settings**:
    - The changes you make are saved in the `config.ini` file. To apply your new color settings, restart the application.
 
+## Calculator:
+
+1. **Usage**
+   -Just use it like a calculator, also it will be logged
+
 ### Notes:
 - **Settings Application**: Color changes will only take effect after restarting the application.
 - **Logging**: Any changes you make to the color scheme are logged and can be reviewed in the `logs` directory.
