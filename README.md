@@ -50,3 +50,38 @@ Before you begin, ensure the following:
 
 7. **View Generated Hashes**:
 - To view the hashes you have generated, navigate to the `logs` folder in the tool's directory. Inside, you'll find a file named with the current date. Open this file to retrieve the hashes.
+## Color Chooser Feature
+
+The Hash Calculator Tool also includes a **Color Chooser** that allows you to customize the application's color scheme. This feature lets you adjust the primary, secondary, background, button, and highlight colors according to your preferences.
+
+### How to Use the Color Chooser
+
+1. **Access the Color Chooser**:
+   - Open the application and navigate to the "Color Selector" tab.
+
+2. **Adjust the Colors**:
+   - You will see three sliders corresponding to the Red, Green, and Blue (RGB) values.
+   - Adjust these sliders to mix the desired color for the selected element.
+
+3. **Preview the Color**:
+   - A color preview box will display the current color based on the RGB values you’ve set.
+
+4. **Apply the Color**:
+   - Once you're satisfied with the color, click on the corresponding button to apply it:
+     - **Primary Color**: Affects the main elements of the UI.
+     - **Secondary Color**: Affects secondary elements and accents.
+     - **Background Color**: Sets the background color of the application.
+     - **Button Background Color**: Changes the background color of the buttons.
+     - **Highlight Color**: Adjusts the color of highlighted elements.
+
+5. **Restore Default Colors**:
+   - If you want to revert to the original color scheme, simply click the "Restore default Colors" button.
+
+6. **Save Your Settings**:
+   - The changes you make are saved in the `config.ini` file. To apply your new color settings, restart the application.
+
+### Notes:
+- **Settings Application**: Color changes will only take effect after restarting the application.
+- **Logging**: Any changes you make to the color scheme are logged and can be reviewed in the `logs` directory.
+
+This feature provides a simple and intuitive way to personalize the look and feel of your Hash Calculator Tool.
