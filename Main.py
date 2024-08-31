@@ -8,25 +8,28 @@ import customtkinter as tk
 import hashlib
 import logging
 import time
+import configparser
 import math
 from tkinter import filedialog
 
-#set up logging
+#set up logging and configuration
 date = time.strftime('%Y-%m-%d')
 logging.basicConfig(filename=f'logs/{date}.log', level=logging.INFO, format='%(asctime)s - %(message)s')
+config = configparser.ConfigParser()
+config.read('config.ini')
 
 #global variables
 colors = [
-    '#F45B69',
-    '#F6E8EA',
-    '#22181C',
-    '#5A0001',
-    '#F13030'
+    config['Colors']['primary'],
+    config['Colors']['secondary'],
+    config['Colors']['background'],
+    config['Colors']['button_bg'],
+    config['Colors']['highlight']
 ]
 
 #create main window and configure it
 window = tk.CTk()
-tk.set_default_color_theme("dark-blue")
+tk.set_default_color_theme(config['General']['theme'])
 window.config(bg=colors[0])
 window.title("Hash Calculator")
 
@@ -113,13 +116,27 @@ def color_selector():
     g = 0
     b = 0
 
-    def hex_to_rgb(hex):
-        rgb = []
-        for i in (0, 2, 4):
-            decimal = int(hex[i:i+2], 16)
-            rgb.append(decimal)
-        return tuple(rgb)
-    
+    def restore():
+        config['Colors']['primary'] = '#F45B69'
+        config['Colors']['secondary'] = '#F6E8EA'
+        config['Colors']['background'] = '#22181C'
+        config['Colors']['button_bg'] = '#5A0001'
+        config['Colors']['highlight'] = '#F13030'
+
+        with open('config.ini', 'w') as configfile:
+            config.write(configfile)
+
+        logging.info(f"Color restored to default")
+        infog.configure(text="Settings will be applied after restarting the application")
+
+    def change_color(color):
+        nonlocal r, g, b
+        config['Colors'][color] = rgb_to_hex(r, g, b)
+        with open('config.ini', 'w') as configfile:
+            config.write(configfile)
+        logging.info(f"changed {color} to {rgb_to_hex(r, g, b)}")
+        infog.configure(text="Settings will be applied after restarting the application")
+
     def update_color():
         curcol = rgb_to_hex(r, g, b)
         presenter.configure(fg_color=curcol)
@@ -141,11 +158,17 @@ def color_selector():
         update_color()
 
 
-    tk.CTkSlider(master=tabview.tab("Color Selector"), bg_color=colors[2],fg_color='#FF0000', from_=0, to=255,command=r_event).grid(row=1, column=0, pady=5)
-    tk.CTkSlider(master=tabview.tab("Color Selector"), bg_color=colors[2],fg_color='#00FF00', from_=0, to=255,command=g_event).grid(row=2, column=0, pady=5)
-    tk.CTkSlider(master=tabview.tab("Color Selector"), bg_color=colors[2],fg_color='#0000FF', from_=0, to=255,command=b_event).grid(row=3, column=0, pady=5)
-    presenter = tk.CTkFrame(master=tabview.tab("Color Selector"), bg_color=colors[2],fg_color='#000000'); presenter.grid(row=4, column=0, pady=5)
-
+    tk.CTkSlider(master=tabview.tab("Color Selector"), bg_color=colors[2],fg_color='#FF0000', from_=0, to=255,command=r_event).grid(row=0, column=0, pady=5)
+    tk.CTkSlider(master=tabview.tab("Color Selector"), bg_color=colors[2],fg_color='#00FF00', from_=0, to=255,command=g_event).grid(row=1, column=0, pady=5)
+    tk.CTkSlider(master=tabview.tab("Color Selector"), bg_color=colors[2],fg_color='#0000FF', from_=0, to=255,command=b_event).grid(row=2, column=0, pady=5)
+    presenter = tk.CTkFrame(master=tabview.tab("Color Selector"), bg_color=colors[2],fg_color='#000000'); presenter.grid(row=3, column=0, pady=5)
+    tk.CTkButton(master=tabview.tab("Color Selector"), bg_color=colors[2],fg_color='#000000', text="Restore default Colors",command=restore).grid(row=0, column=1, pady=5)
+    tk.CTkButton(master=tabview.tab("Color Selector"), bg_color=colors[2],fg_color=colors[3], text="Change primary Color", command=lambda: change_color('primary')).grid(row=1, column=1, pady=5)
+    tk.CTkButton(master=tabview.tab("Color Selector"), bg_color=colors[2],fg_color=colors[3], text="Change secondary Color", command=lambda: change_color('secondary')).grid(row=2, column=1, pady=5)
+    tk.CTkButton(master=tabview.tab("Color Selector"), bg_color=colors[2],fg_color=colors[3], text="Change background Color", command=lambda: change_color('background')).grid(row=0, column=2, pady=5)
+    tk.CTkButton(master=tabview.tab("Color Selector"), bg_color=colors[2],fg_color=colors[3], text="Change button background Color", command=lambda: change_color('button_bg')).grid(row=1, column=2, pady=5)
+    tk.CTkButton(master=tabview.tab("Color Selector"), bg_color=colors[2],fg_color=colors[3], text="Change highlight Color", command=lambda: change_color('highlight')).grid(row=2, column=2, pady=5)
+    infog = tk.CTkLabel(master=tabview.tab("Color Selector"), bg_color=colors[2],fg_color='#000000', text=""); infog.grid(row=3, column=1,)
 
 
 # Run the GUI
