@@ -108,7 +108,100 @@ def hashcalc():
         return inp
 
 def calc():
-    tk.CTkButton(master=tabview.tab("Calculator"), bg_color=colors[2],fg_color=colors[3],text="hi").grid(row = 0, column = 0)
+    expression = ""
+    memory = 0
+
+    def update_display(value):
+        current_text = display.get()
+        new_text = current_text + value
+        display.delete(0, tk.END)
+        display.insert(0, new_text)
+
+    def clear_display():
+        display.delete(0, tk.END)
+
+    def calculate():
+        try:
+            result = eval(display.get())
+            logging.info(f"Calculation: {display.get()} = {result}")
+            clear_display()
+            display.insert(0, result)
+        except Exception as e:
+            logging.error(f"Error in calculation: {e}")
+            clear_display()
+            display.insert(0, "Error")
+
+    def memory_clear():
+        nonlocal memory
+        memory = 0
+
+    def memory_add():
+        nonlocal memory
+        memory += eval(display.get())
+        logging.info(f"Memory add: {memory}")
+
+    def memory_subtract():
+        nonlocal memory
+        memory -= eval(display.get())
+        logging.info(f"Memory subtract: {memory}")
+
+    def factorial():
+        try:
+            result = math.factorial(int(display.get()))
+            logging.info(f"Factorial: {display.get()}! = {result}")
+            clear_display()
+            display.insert(0, result)
+        except Exception as e:
+            logging.error(f"Error in factorial: {e}")
+            clear_display()
+            display.insert(0, "Error")
+
+    def power():
+        try:
+            base, exponent = map(float, display.get().split('^'))
+            result = math.pow(base, exponent)
+            logging.info(f"Power: {base}^{exponent} = {result}")
+            clear_display()
+            display.insert(0, result)
+        except Exception as e:
+            logging.error(f"Error in power calculation: {e}")
+            clear_display()
+            display.insert(0, "Error")
+
+    display = tk.CTkEntry(master=tabview.tab("Calculator"), width=400)
+    display.grid(row=0, column=0, columnspan=4)
+
+    buttons = [
+        ('7', 1, 0), ('8', 1, 1), ('9', 1, 2), ('/', 1, 3),
+        ('4', 2, 0), ('5', 2, 1), ('6', 2, 2), ('*', 2, 3),
+        ('1', 3, 0), ('2', 3, 1), ('3', 3, 2), ('-', 3, 3),
+        ('0', 4, 0), ('.', 4, 1), ('=', 4, 2), ('+', 4, 3),
+        ('C', 5, 0), ('^', 5, 1), ('!', 5, 2), ('M+', 5, 3),
+        ('M-', 6, 3), ('M', 6, 2), ('MC', 6, 1)
+    ]
+
+    for (text, row, col) in buttons:
+        if text == '=':
+            action = calculate
+        elif text == 'C':
+            action = clear_display
+        elif text == 'M+':
+            action = memory_add
+        elif text == 'M-':
+            action = memory_subtract
+        elif text == 'MC':
+            action = memory_clear
+        elif text == '!':
+            action = factorial
+        elif text == '^':
+            action = power
+        else:
+            action = lambda t=text: update_display(t)
+
+        tk.CTkButton(
+            master=tabview.tab("Calculator"),
+            text=text, width=100, height=80, command=action
+        ).grid(row=row, column=col)
 
 def color_selector():
     
